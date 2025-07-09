@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/Core/Resources/validators.dart';
 import 'package:online_exam/Core/Widgets/CustomTextField.dart';
-import 'package:online_exam/Features/Auth/Sign_in/presentation/pages/Login.dart';
+import 'package:online_exam/Features/Auth/Login/presentation/pages/Login.dart';
 
 class Signup extends StatefulWidget {
   static const String routename="SignUp";
@@ -63,34 +63,38 @@ class _SignupState extends State<Signup> {
             ),
           ),
           Row(children: [
-            CustomTextField(
-              hintText: "First Name",
-              isPassword: false,
-              lableText: "First Name",
-              controller:firstcontroller,
-              validator: (String? val) {
-                if (val == null || val.isEmpty) {
-                  return 'this field is required';
-                } else {
-                  return null;
+            Expanded(
+              child: CustomTextField(
+                hintText: "First Name",
+                isPassword: false,
+                lableText: "First Name",
+                controller:firstcontroller,
+                validator: (String? val) {
+                  if (val == null || val.isEmpty) {
+                    return 'this field is required';
+                  } else {
+                    return null;
+                  }
                 }
-              }
+              ),
             ),
-            CustomTextField(
-              hintText: "Enter Second Name",
-              isPassword: false,
-              lableText: "Second Name",
-              controller: secondcontroller,
-              validator: (String? val) {
-                if (val == null || val.isEmpty) {
-                  return 'this field is required';
-                } else {
-                  return null;
-                }
-              },
+            Expanded(
+              child: CustomTextField(
+                hintText: "Enter Second Name",
+                isPassword: false,
+                lableText: "Second Name",
+                controller: secondcontroller,
+                validator: (String? val) {
+                  if (val == null || val.isEmpty) {
+                    return 'this field is required';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
             ),
-          ],)
-          ,Container(
+          ],),
+          Container(
             width:double.infinity ,
             child: CustomTextField(
                 hintText: "Email",
@@ -112,37 +116,41 @@ class _SignupState extends State<Signup> {
                 }
             ),
           ),
-          Row(
-            children: [ CustomTextField(
-                hintText: "Password",
-                isPassword: true,
-                lableText: "Password",
-                controller:firstcontroller,
-                validator: (String? val) {
-                  RegExp passwordRegex = RegExp(r'^(?=.*[a-zA-Z])(?=.*[0-9])');
-                  if (val == null) {
-                    return 'this field is required';
-                  } else if (val.isEmpty) {
-                    return 'this field is required';
-                  } else if (val.length < 8 || !passwordRegex.hasMatch(val)) {
-                    return 'strong password please';
-                  } else {
-                    return null;
-                  }
-                }
-            ),
-              CustomTextField(
-                  hintText: "Confirm Password",
+         Row(
+            children: [ Expanded(
+              child: CustomTextField(
+                  hintText: "Password",
                   isPassword: true,
-                  lableText: "Confirm Password",
-                  controller:confirmcontroller,
+                  lableText: "Password",
+                  controller:firstcontroller,
                   validator: (String? val) {
-                    if (val == null || val.isEmpty) {
+                    RegExp passwordRegex = RegExp(r'^(?=.*[a-zA-Z])(?=.*[0-9])');
+                    if (val == null) {
                       return 'this field is required';
+                    } else if (val.isEmpty) {
+                      return 'this field is required';
+                    } else if (val.length < 8 || !passwordRegex.hasMatch(val)) {
+                      return 'strong password please';
                     } else {
                       return null;
                     }
                   }
+              ),
+            ),
+              Expanded(
+                child: CustomTextField(
+                    hintText: "Confirm Password",
+                    isPassword: true,
+                    lableText: "Confirm Password",
+                    controller:confirmcontroller,
+                    validator: (String? val) {
+                      if (val == null || val.isEmpty) {
+                        return 'this field is required';
+                      } else {
+                        return null;
+                      }
+                    }
+                ),
               ),
           ]),
           Container(
