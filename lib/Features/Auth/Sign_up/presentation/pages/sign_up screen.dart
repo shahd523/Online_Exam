@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/Core/Resources/validators.dart';
+import 'package:online_exam/Core/Locale/PrefsHelper.dart';
+import 'package:online_exam/Core/RoutesManager/routes.dart';
 import 'package:online_exam/Core/Widgets/CustomTextField.dart';
 import 'package:online_exam/Features/Auth/Login/presentation/pages/Login.dart';
+import 'package:online_exam/Features/Auth/Sign_up/presentation/manager/sign_up_cubit.dart';
 
 class Signup extends StatefulWidget {
   static const String routename="SignUp";
@@ -174,22 +176,48 @@ class _SignupState extends State<Signup> {
             ),
           ),
           SizedBox(height: 10,),
-          ElevatedButton(onPressed: (){
-           // Navigator.push(context,MaterialPageRoute(builder: (context) =>));
+          BlocConsumer<SignUpCubit, SignUpState>(
+  listener: (context, state) {
+    if(state is SignUpLoadingState){
+      return AlertDialog(content: Center(
+        child: CircularProgressIndicator(color: Colors.black),
+      ),);
+    }
+else if(state is SignUpErrorState){showDialog(context:context , builder: (context)=>AlertDialog(content: Center(
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(state.message),
+    ],
+  ),
+),));}
+else if(state is SignUpSuccessState){
+  PrefsHelper.SaveToken(state.signupentity.token!);
+  Navigator.pushReplacementNamed(context, Routes.mainRoute);
+}
 
-          },
+
+  },
+  builder: (context, state) {
+   // var cubit=BlocProvider.of<SignUpCubit>(context);
+    return ElevatedButton(onPressed: (){
+     // if(formkey.currentState!.validate()){}
+
+    },
             child: Text("SignUp",style: TextStyle(color: Colors.white)),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               textStyle: TextStyle(color: Colors.white),
               padding: EdgeInsets.all(20.0),
               fixedSize: Size(300, 60),
-            ),),
+            ),);
+  },
+),
           SizedBox(height: 10,),
           Row(
             children: [
               Text("Already have an account?",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w400),),
-              InkWell(onTap:(){Navigator.pushReplacementNamed(context,Login.routeName);},
+              InkWell(onTap:(){Navigator.pushReplacementNamed(context, Routes.signInRoute);},
                   child: Text("Login",style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.w400),)),
             ],
           )

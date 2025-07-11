@@ -20,11 +20,27 @@ class _APIClient implements APIClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SignUpResponce> signup() async {
+  Future<SignUpResponce> signup({
+    required String firstname,
+    required String secondname,
+    required String username,
+    required String email,
+    required String phone,
+    required String pass,
+    required String repass,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {
+      'firstname': firstname,
+      'secondname': secondname,
+      'username': username,
+      'email': email,
+      'phone': phone,
+      'pass': pass,
+      'repass': repass,
+    };
     final _options = _setStreamType<SignUpResponce>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

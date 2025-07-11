@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:online_exam/Features/Auth/Sign_up/data/models/SignUpResponce.dart';
+import 'package:online_exam/Features/Auth/Sign_up/domain/entities/SignUpEntity.dart';
 
-abstract class Signupdatasource {
-  Future<Either<SignUpResponce,String>>registeruser({required String firstname,
+abstract class SignUpRepo{
+  Future<Either<SignUpEntity,String>>registeruser({required String firstname,
     required String secondname,
     required String username,
     required String email,

@@ -31,6 +31,22 @@ controller: controller,
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(color: Colors.grey,width: 0.5)
             ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff898F9C),width: 0.5),
+              borderRadius: BorderRadius.circular(5)),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xff898F9C),width: 0.5),
+              borderRadius: BorderRadius.circular(5),
+
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width:0.5),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.redAccent, width: 0.5),
+              borderRadius: BorderRadius.circular(5),
+            ),
           ),
 
         ),
