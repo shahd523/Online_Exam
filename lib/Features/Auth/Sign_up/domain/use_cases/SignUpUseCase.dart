@@ -7,7 +7,7 @@ class SignUpUseCase {
   SignUpRepo signuprepo;
   @factoryMethod
   SignUpUseCase(this.signuprepo);
-  call({required SignUpResponce signupresponce,required String firstname,
+  call({required String firstname,
     required String secondname,
     required String username,
     required String email,

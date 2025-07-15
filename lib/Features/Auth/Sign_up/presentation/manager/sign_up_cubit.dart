@@ -4,13 +4,16 @@ import 'package:meta/meta.dart';
 import 'package:online_exam/Features/Auth/Sign_up/data/models/SignUpResponce.dart';
 import 'package:online_exam/Features/Auth/Sign_up/domain/entities/SignUpEntity.dart';
 import 'package:online_exam/Features/Auth/Sign_up/domain/use_cases/SignUpUseCase.dart';
+import 'package:retrofit/dio.dart';
+import 'package:dio/dio.dart';
 
 part 'sign_up_state.dart';
 @injectable
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit(this.signupusecase) : super(SignUpInitial());
+  final Dio dio;
+  SignUpCubit(this.signupusecase,this.dio) : super(SignUpInitial());
   SignUpUseCase signupusecase;
-  registeruser({required SignUpResponce signupresponce,
+  registeruser({
   required String firstname,
   required String secondname,
   required String username,
@@ -19,7 +22,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   required String pass,
   required String repass})async{
     emit(SignUpLoadingState());
-    var result=await signupusecase.call(signupresponce: signupresponce,
+    var result=await signupusecase.call(
         firstname: firstname,
         secondname: secondname,
         username: username,
