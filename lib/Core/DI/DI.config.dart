@@ -26,6 +26,7 @@ import '../../Features/Auth/Sign_up/domain/use_cases/SignUpUseCase.dart'
 import '../../Features/Auth/Sign_up/presentation/manager/sign_up_cubit.dart'
     as _i3;
 import '../Remote/Api/APIClient.dart' as _i1040;
+import '../Remote/Api/network_module.dart' as _i709;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -38,10 +39,9 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i1040.APIClient>(() => _i1040.APIClient(
-          gh<_i361.Dio>(),
-          baseUrl: gh<String>(),
-        ));
+    final networkModule = _$NetworkModule();
+    gh.lazySingleton<_i361.Dio>(() => networkModule.dioProvider());
+    gh.factory<_i1040.APIClient>(() => _i1040.APIClient(gh<_i361.Dio>()));
     gh.factory<_i641.Signupdatasource>(
         () => _i489.SignUpDataSourceImpl(gh<_i1040.APIClient>()));
     gh.factory<_i545.SignUpRepo>(
@@ -55,3 +55,5 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$NetworkModule extends _i709.NetworkModule {}
